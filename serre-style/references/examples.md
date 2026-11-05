@@ -143,8 +143,12 @@ After:
 ```python
 def load_user(user_id): ...
 def delete_user(user_id): ...
-def user_permissions(user): ...
+def user_permissions(user_id): ...
 ```
+
+All three take the same identifier, so it has one name. A parameter holding a
+`User` object would be a different concept and would get a different name,
+such as `user`.
 
 ### E9. Status of a claim (7.1, 7.2)
 
@@ -172,19 +176,33 @@ neither.
 Before:
 
 ```python
-def mean(values, weights=None, axis=0, skipna=False, strategy="arithmetic"):
+def format_amount(
+    value: float,
+    currency_symbol: str = "€",
+    symbol_position: str = "before",
+    decimals: int = 2,
+    thousands_sep: str = ",",
+    decimal_sep: str = ".",
+    negative_style: str = "minus",
+) -> str:
+    """Format an amount of money."""
 ```
 
-where every caller passes only `values`.
+in an application whose only caller prints euro totals on invoices, always
+with the defaults.
 
 After:
 
 ```python
-def mean(values: Sequence[float]) -> float:
-    """Return the arithmetic mean of values. Requires len(values) > 0."""
+def format_euros(cents: int) -> str:
+    """Return cents as a euro amount, e.g. format_euros(123456) == '€1,234.56'."""
 ```
 
-Add a parameter when its first caller exists.
+The first version asks the reader to understand six options that no caller
+uses, and makes promises about combinations (`decimals=0` with
+`negative_style="parentheses"`) that no test checks. As with a theorem, state
+and prove it in the generality you use. Add a parameter when its first caller
+exists.
 
 ---
 
