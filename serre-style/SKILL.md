@@ -212,25 +212,6 @@ needed, delete it and reread; restore it only if something is missing.
 
 ---
 
-## How to write badly
-
-The same rules, inverted, in the manner of Serre's lecture. Use it as a quick
-diagnostic: each item is a symptom.
-
-- Number nothing; write "by the above".
-- Change notation halfway through; let one letter mean two things.
-- Put the essential hypothesis in a convention on page 2, or in a footnote.
-- Begin with the most general case; give the example last, or never.
-- Write "obviously" wherever you are unsure.
-- Use ∀ and ⇒ in sentences; start sentences with formulas.
-- Name things `data`, `tmp`, `info`, `handle`, `manager`, `helper`.
-- Comment every line with what it does, never why.
-- Keep commented-out code "in case".
-- Describe planned features in the README as if they existed.
-- Let the docstring and the code disagree.
-
----
-
 ## Applying this skill
 
 **When writing.** Draft for the intended reader, then revise with the checklist
