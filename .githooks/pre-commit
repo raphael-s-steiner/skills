@@ -1,0 +1,8 @@
+#!/bin/sh
+# Regenerates README.md and stages it, so the skill table in the commit
+# matches the skills in the commit. Enable with:
+#   git config core.hooksPath .githooks
+set -e
+root=$(git rev-parse --show-toplevel)
+python3 "$root/scripts/gen_readme.py"
+git add "$root/README.md"
