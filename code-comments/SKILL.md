@@ -16,7 +16,7 @@ skill; "serre-style 6.4" refers to rule 6.4 of `serre-style`.
 every comment; the rules most often relevant are serre-style 2.4 (replace vague
 words), 3.4 and 3.5 (a statement is complete and usable in isolation), 6.4
 (comments say *why*), and 7.5 (keep the text true as things change). The rules
-below add what serre-style does not cover: how comments relate to time and
+below add what serre-style does not fully cover: how comments relate to time and
 change.
 
 ---
@@ -51,8 +51,7 @@ def load_records(path):
 ```
 
 The comment states only the contract of `load_records` (serre-style 3.4, 3.5).
-Why a caller depends on that contract, if worth recording, is said at the
-caller.
+Why a caller depends on that contract, if worth recording at all, is stated at the caller.
 
 **1.4** The following are not history, and are allowed:
 - the source of the present code (serre-style 7.3): "Binary GCD; Knuth,
@@ -100,7 +99,7 @@ same code is history (1.1).
 diff changes. If a comment is no longer true, correct or delete it in the same
 diff (serre-style 7.5).
 
-**3.2** Delete comments that describe behaviour the code no longer has. Do not
+**3.2** Delete or correct comments that describe behaviour the code no longer has. Do not
 replace them with a comment about the change.
 
 **3.3** Do not add comments that narrate the refactoring ("extracted from
@@ -138,7 +137,7 @@ did not write may record a reason you do not know.
 
 **4.3** If an existing comment describes history or makes a comparison,
 rewrite it by 1.3 or 2.2. Delete it only if nothing in it is true of the
-present code.
+present code. Trim exclusively the parts which are not true for the present code.
 
 **4.4** A comment that paraphrases the code is noise (serre-style 6.4), but
 remove it only when the task is to review or clean up comments. In a diff with
