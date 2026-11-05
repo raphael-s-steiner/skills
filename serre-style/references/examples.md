@@ -113,20 +113,23 @@ rows = rows[1:]
 
 Before:
 
-```python
-def find(xs, x):
-    """Handles finding stuff in the list. Returns the index."""
+```cpp
+// Handles finding stuff in the vector. Returns the index.
+int find(const std::vector<int>& v, int x);
 ```
 
 After:
 
-```python
-def first_index(xs: Sequence[T], x: T) -> int | None:
-    """Return the smallest i with xs[i] == x, or None if x does not occur in xs."""
+```cpp
+/// Returns the smallest i with xs[i] == x, or std::nullopt if x does not occur in xs.
+std::optional<std::size_t> first_index(std::span<const int> xs, int x);
 ```
 
 "The index" was false when x occurs twice; "handles" said nothing; the case
-"x absent" was missing.
+"x absent" was missing, and the caller had to guess whether it returns -1.
+The types now carry part of the statement: `std::span<const int>` says xs is
+only read, and `std::optional` says the result may be absent. The comment
+states the rest.
 
 ### E8. One concept, three names (4.1, 4.7)
 
@@ -150,26 +153,26 @@ All three take the same identifier, so it has one name. A parameter holding a
 `User` object would be a different concept and would get a different name,
 such as `user`.
 
-### E9. Status of a claim (7.1, 7.2)
+### E9. Status of a claim (7.1, 7.2, 2.6)
 
 Before:
 
-```python
-# should work for negative n too
-def digits(n: int) -> list[int]:
+```rust
+// should work for negative n too
+fn digits(n: i64) -> Vec<u8>
 ```
 
 After:
 
-```python
-def digits(n: int) -> list[int]:
-    """Return the decimal digits of n, most significant first. Requires n >= 0."""
-    if n < 0:
-        raise ValueError(f"n must be non-negative, got {n}")
+```rust
+/// Returns the decimal digits of `n`, most significant first; `digits(0)` is `[0]`.
+fn digits(n: u64) -> Vec<u8>
 ```
 
 Either prove the claim (test it) or restrict the statement. "Should work" is
-neither.
+neither. Here the type makes the restriction: with `u64`, the hypothesis
+n ≥ 0 is checked by the compiler, so neither a comment nor a runtime check is
+needed.
 
 ### E10. Generality nobody uses (1.5)
 
